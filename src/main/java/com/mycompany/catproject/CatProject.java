@@ -13,19 +13,22 @@ import javax.swing.JOptionPane;
  */
 public class CatProject {
     public static void main(String[] args) throws IOException {
-        GatosService catService =new GatosService();
-        catService.getGatos();
+        StackGato stackGatos = new StackGato();
         
         int opcionMenu = -1;
         String[]opciones = {
             "1. Ver gato",
-            "2. Salir"
+            "2. Mostrar Gatos",
+            "3. Checar si el stack está lleno",
+            "4. Eliminar último gato",
+            "5. Salir"
         };
+        
+        
         do{
-            String opcion = (String)JOptionPane.showInputDialog(null,
-                    "Gatitos java", "Menú Principal",
-                    JOptionPane.INFORMATION_MESSAGE, null,
-                    opciones, opciones[0]);
+            String opcion = (String)JOptionPane.showInputDialog(null, "Gatitos java",
+                    "Menú Principal", JOptionPane.INFORMATION_MESSAGE, null, opciones,
+                    opciones[0]);
             
             for(int i = 0; i < opciones.length; i++){
                 if(opcion.equals(opciones[i]))
@@ -36,14 +39,30 @@ public class CatProject {
             switch(opcionMenu){
                 case 0:{
                     System.out.println("Vas a ver a un gato");
-                    service.getGatos();
+                    Gato g = service.getGatos();
+                    stackGatos.push(g);
                 }
                     break;
-                case 1:
+                case 1:{
+                    stackGatos.mostrarGato();
+                }
+                    break;
+                case 2:{
+                    if(stackGatos.stackLleno())
+                        System.out.println("El stack está lleno");
+                    else
+                        System.out.println("El stack no está lleno");
+                }
+                    break;
+                case 3:{
+                    stackGatos.pop();
+                }
+                    break;
+                case 4:
                     System.out.println("Vas a salir del sistema");
             }
             
-        }while(opcionMenu != 1);
+        }while(opcionMenu != 4);
     }
     
 }

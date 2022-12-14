@@ -49,7 +49,7 @@ public class GatosService {
     }
     
     //recupera gatos de The Cat API
-    public void getGatos () throws IOException{
+    public Gato getGatos () throws IOException{
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = RequestBody.create(mediaType, "");
@@ -70,6 +70,13 @@ public class GatosService {
         Gson gson = new Gson();
         Gato gato = gson.fromJson(gatoJson, Gato.class);
         
+        //Probando que la información esté en el objeto Gato
+        System.out.println("Gato id: " + gato.getId());
+        System.out.println("Gato url: " + gato.getUrl());
+        
+        /* Comienzo del código para el stack*/
+        System.out.println("--- Gato guardado en el stack ---");
+        
         Image image = null;
         try{
             URL url = new URL(gato.getUrl());
@@ -83,10 +90,12 @@ public class GatosService {
             }
             
             desplegarImagen(gato, imgGato);
+            
         } catch (Exception e){
             System.out.println("No se pudo crear el objeto Image");
         }
         
+        return gato;
     }
     
 }
